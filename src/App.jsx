@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
-import PageDecorations from './components/PageDecorations';
+
 
 function Layout() {
   const location = useLocation();
@@ -18,7 +18,6 @@ function Layout() {
 
   return (
     <div className="flex flex-col min-h-screen bg-transparent font-sans relative overflow-x-hidden">
-      <PageDecorations />
       {!hideHeaderFooter && <Navbar />}
       <main className="flex-grow">
         <Routes>

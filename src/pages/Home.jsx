@@ -96,7 +96,7 @@ const Home = () => {
     <div className="font-sans antialiased text-gray-500 pt-12">
 
       {/* Hero Section */}
-      <div className="relative h-[108dvh] min-h-[600px] w-full flex items-center overflow-hidden bg-slate-900">
+      <div className="relative h-[80vh] sm:h-[108dvh] min-h-[500px] sm:min-h-[600px] w-full flex items-center overflow-hidden bg-slate-900">
 
         {/* Slider Backgrounds */}
         <AnimatePresence mode="wait">
@@ -108,9 +108,10 @@ const Home = () => {
             transition={{ duration: 1.5 }}
             className="absolute inset-0 z-0"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat w-full h-full"
-              style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
+            <img
+              src={slides[currentSlide].image}
+              alt={slides[currentSlide].title}
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
             {/* Gradient Overlay for Text Readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
@@ -118,7 +119,7 @@ const Home = () => {
           </motion.div>
         </AnimatePresence>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full pt-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full pt-16 sm:pt-20">
           <motion.div
             key={currentSlide}
             initial={{ opacity: 0, x: -30 }}
