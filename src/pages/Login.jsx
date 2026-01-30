@@ -38,8 +38,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 pt-20 pb-12 px-4 sm:px-6 lg:px-8 bg-[url('/images/hero.png')] bg-cover bg-center bg-no-repeat bg-fixed relative">
-      <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"></div>
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 pt-20 pb-12 px-4 sm:px-6 lg:px-8 bg-[url('/images/hero.png')] bg-cover bg-center bg-no-repeat bg-fixed relative overflow-hidden">
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
 
       <div className="max-w-md w-full space-y-8 relative z-10 bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
         <div className="text-center">

@@ -30,8 +30,9 @@ const Products = () => {
     : products.filter(p => p.category === activeCategory);
 
   return (
-    <div className="pt-32 pb-20 min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative pt-32 pb-20 min-h-screen bg-transparent">
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Equipment Fleet</h1>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -77,7 +78,7 @@ const Products = () => {
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow border border-gray-100 group"
               >
                 <div className="h-48 relative overflow-hidden bg-gray-50">
-                  {product.image && (product.image.startsWith('/') || product.image.startsWith('http')) ? (
+                  {product.image && (product.image.startsWith('/') || product.image.startsWith('http') || product.image.startsWith('data:')) ? (
                     <img
                       src={product.image}
                       alt={product.name}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -12,13 +12,27 @@ const Register = () => {
     role: 'user'
   });
   const [loading, setLoading] = useState(false);
+  const [adminExists, setAdminExists] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/auth/check-admin');
+        setAdminExists(res.data.exists);
+      } catch (err) {
+        console.error("Error checking admin status");
+      }
+    };
+    checkAdmin();
+  }, []);
 
   const { name, email, password, role } = formData;
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const setRole = (selectedRole) => {
+    if (selectedRole === 'admin' && adminExists) return;
     setFormData({ ...formData, role: selectedRole });
   };
 
@@ -38,8 +52,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 pt-20 pb-12 px-4 sm:px-6 lg:px-8 bg-[url('/images/hero_drone.png')] bg-cover bg-center bg-no-repeat bg-fixed relative">
-      <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm"></div>
+    <div className="min-h-screen flex items-center justify-center bg-slate-950 pt-20 pb-12 px-4 sm:px-6 lg:px-8 bg-[url('/images/hero_drone.png')] bg-cover bg-center bg-no-repeat bg-fixed relative overflow-hidden">
+      <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
 
       <div className="max-w-md w-full space-y-8 relative z-10 bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
         <div className="text-center">
@@ -76,12 +90,22 @@ const Register = () => {
           <button
             type="button"
             onClick={() => setRole('admin')}
-            className={`flex-1 relative z-10 py-2.5 text-sm font-bold transition-colors duration-200 flex items-center justify-center gap-2 ${role === 'admin' ? 'text-green-700' : 'text-gray-500'}`}
+            disabled={adminExists}
+            className={`flex-1 relative z-10 py-2.5 text-sm font-bold transition-all duration-200 flex items-center justify-center gap-2 ${role === 'admin' ? 'text-green-700' : 'text-gray-500'} ${adminExists ? 'cursor-not-allowed opacity-40 grayscale' : 'cursor-pointer'}`}
+            title={adminExists ? "Administrator already registered" : "Join as Admin"}
           >
             <ShieldCheck className="w-4 h-4" />
             Admin
           </button>
         </div>
+
+        {adminExists && role === 'user' && (
+          <div className="mt-[-28px] mb-4 text-center">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+              * Admin registration locked
+            </span>
+          </div>
+        )}
 
         <form className="mt-8 space-y-5" onSubmit={onSubmit}>
           <div className="space-y-4">

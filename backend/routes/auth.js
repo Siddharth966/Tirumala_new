@@ -18,6 +18,19 @@ const auth = (req, res, next) => {
   }
 };
 
+// @route   GET api/auth/check-admin
+// @desc    Check if an admin already exists
+// @access  Public
+router.get('/check-admin', async (req, res) => {
+  try {
+    const admin = await User.findOne({ role: 'admin' });
+    res.json({ exists: !!admin });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // Register
 router.post('/register', async (req, res) => {
   try {
@@ -27,6 +40,14 @@ router.post('/register', async (req, res) => {
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
+    }
+
+    // Restriction: Only one admin allowed
+    if (role === 'admin') {
+      const adminExists = await User.findOne({ role: 'admin' });
+      if (adminExists) {
+        return res.status(403).json({ msg: 'An administrator already exists. Multiple admin accounts are not permitted.' });
+      }
     }
 
     // Hash password

@@ -10,13 +10,15 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
+import PageDecorations from './components/PageDecorations';
 
 function Layout() {
   const location = useLocation();
   const hideHeaderFooter = ['/login', '/register', '/admin', '/dashboard'].includes(location.pathname) || location.pathname.startsWith('/admin');
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 font-sans">
+    <div className="flex flex-col min-h-screen bg-transparent font-sans relative overflow-x-hidden">
+      <PageDecorations />
       {!hideHeaderFooter && <Navbar />}
       <main className="flex-grow">
         <Routes>

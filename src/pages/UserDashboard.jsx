@@ -46,7 +46,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col relative overflow-hidden">
       {/* Header */}
       <header className="bg-white shadow-sm h-20 flex items-center justify-between px-4 md:px-8 sticky top-0 z-20">
         <div className="flex items-center space-x-4">
@@ -69,7 +69,7 @@ const UserDashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+      <main className="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full relative z-10">
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900">Your Dashboard</h2>
           <p className="text-gray-500">View your scheduled consultations with our experts.</p>
